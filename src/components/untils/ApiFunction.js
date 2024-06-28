@@ -4,6 +4,7 @@ export const api = axios.create({
 	baseURL: "http://localhost:9456/api/quiz"
 })
 
+// function create a new question
 export async function createQuestion (quizQuestion) {
     try {
         const response = await api.post("/create-new-question", quizQuestion)
@@ -13,6 +14,7 @@ export async function createQuestion (quizQuestion) {
     }
 }
 
+//function get all questions
 export async function getAllQuestion(){
     try {
         const response = await api.get("/all-questions")
@@ -22,6 +24,7 @@ export async function getAllQuestion(){
     }
 }
 
+// function get all subjects
 export async function getSubjects(){
     try {
         const response = await api.get("/subjects")
@@ -31,6 +34,7 @@ export async function getSubjects(){
     }
 }
 
+//function delete a question
 export async function deleteQuestion(id){
     try {
         const response = await api.delete(`/question/${id}/delete`)
@@ -40,6 +44,7 @@ export async function deleteQuestion(id){
     }
 }
 
+// function update a question
 export async function updateQuestion (id, question) {
     try {
         const response = await api.put(`/question/${id}/update`, question)
@@ -49,6 +54,7 @@ export async function updateQuestion (id, question) {
     }
 }
 
+// function get a question by id
 export async function getQuestionById(id){
     try {
         const response = await api.get(`/question/${id}`)
@@ -58,6 +64,7 @@ export async function getQuestionById(id){
     }
 }
 
+// function fetch quiz for user
 export async function fetchQuizForUser(number, subject){
     try {
         const response = await api.get(`/fetch-questions-for-user?numberOfQuestion=${number}&subject=${subject}`)

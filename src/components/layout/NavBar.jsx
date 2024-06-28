@@ -1,16 +1,21 @@
 import React from "react";
-import {Nav} from "react-bootstrap";
+import {Nav, Button} from "react-bootstrap";
 import { NavLink } from "react-router-dom"
+import { MdAdminPanelSettings } from "react-icons/md";
+import { BsRocketTakeoff } from "react-icons/bs";
+import { FaHome } from "react-icons/fa";
+
 
 
 const NavBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary px-5 shadow sticky-top">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary px-5 shadow sticky-top" id="nav-home">
         <div className="container-fluid">
-            <NavLink className="navbar-brand" to={"/"}>
-                Online Quiz App
+            <NavLink className="navbar-brand text-info" to={"/"}>
+                <FaHome /> Online Quiz App
             </NavLink>
-            <button
+            <Button
+                variant="outline-info"
                 className="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
@@ -19,18 +24,17 @@ const NavBar = () => {
                 aria-expanded="false"
                 aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
-            </button>
+            </Button>
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
                         <NavLink className="nav-link" to={"/admin"}>
-                            Admin
+                            <MdAdminPanelSettings /> Admin
                         </NavLink>
                     </li>
-
                     <li className="nav-item">
                         <NavLink className="nav-link" to={"/quiz-stepper"}>
-                            Take Quiz
+                            <BsRocketTakeoff /> Take Quiz
                         </NavLink>
                     </li>
                 </ul>

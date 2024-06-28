@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import { getSubjects } from '../untils/ApiFunction'
+import { FaHandPointRight, FaRegQuestionCircle} from "react-icons/fa";
+import { GiPreviousButton, GiNextButton } from "react-icons/gi";
+import { MdStart } from "react-icons/md";
+import {Button} from 'react-bootstrap'
 
 const QuizStepper = () => {
 
@@ -51,10 +55,10 @@ const QuizStepper = () => {
         switch (currentStep) {
             case 1:
                 return (
-                    <div>
-                        <h3 className="text-info mb-2">I want to take a quiz on :</h3>
+                    <div className='font-family'>
+                        <h2 className="text-secondary mb-2">I want to take a quiz on:</h2>
                         <select
-                            className="form-select"
+                            className="form-select fs-5 "
                             value={selectedSubject}
                             onChange={handleSubjectChange}>
                             <option value="">Select a subject</option>
@@ -68,11 +72,11 @@ const QuizStepper = () => {
                 )
             case 2:
                 return (
-                    <div>
-                        <h4 className="text-info mb-2">How many questions would you like to attempt ?</h4>
+                    <div className='font-family'>
+                        <h2 className="text-secondary mb-2 font-family">How many questions would you like to attempt ?</h2>
                         <input
                             type="number"
-                            className="form-control"
+                            className="form-control fs-5"
                             value={selectedNumQuestions}
                             onChange={handleNumQuestionsChange}
                             placeholder="Enter the number of questions"
@@ -81,10 +85,10 @@ const QuizStepper = () => {
                 )
             case 3:
                 return (
-                    <div>
-                        <h2>Confirmation</h2>
-                        <p>Subject: {selectedSubject}</p>
-                        <p>Number of Questions: {selectedNumQuestions}</p>
+                    <div className='font-family'>
+                        <h2 className='text-secondary mb-2'>  Confirmation <FaRegQuestionCircle /> </h2>
+                        <p className="fs-5 ms-3 text-info"> <FaHandPointRight /> Subject: {selectedSubject}</p>
+                        <p className="fs-5 ms-3 text-info"> <FaHandPointRight /> Number of Questions: {selectedNumQuestions}</p>
                     </div>
                 )
             default:
@@ -95,7 +99,7 @@ const QuizStepper = () => {
     const renderProgressBar = () => {
         const progress = currentStep === 3 ? 100 : ((currentStep - 1) / 2) * 100
         return (
-            <div className="progress">
+            <div className="progress font-family fs-5">
                 <div
                     className="progress-bar"
                     role="progressbar"
@@ -109,34 +113,34 @@ const QuizStepper = () => {
 
   return (
     <section className="mt-5">
-        <h3 style={{ color: "GrayText" }} className="mb-4">
-            Welcome to quiz online
-        </h3>
+        <h1 className="mt-5 text-center text-primary fw-bold font-family">
+            WELCOME TO QUIZ ONLINE
+        </h1>
         {renderProgressBar()}
         <div className="card">
             <div className="card-body">
                 {renderStepContent()}
                 <div className="d-flex justify-content-between mt-4">
                     {currentStep > 1 && (
-                        <button className="btn btn-primary" onClick={handlePrevious}>
-                            Previous
-                        </button>
+                        <Button variant="outline-warning" size='lg' onClick={handlePrevious}>
+                            <GiPreviousButton /> Previous
+                        </Button>
                     )}
                     {currentStep < 3 && (
-                        <button
-                            className="btn btn-primary"
+                        <Button
+                            variant="outline-primary" size='lg'
                             onClick={handleNext}
                             disabled={
                                 (currentStep === 1 && !selectedSubject) ||
                                 (currentStep === 2 && !selectedNumQuestions)
                             }>
-                            Next
-                        </button>
+                            <GiNextButton /> Next
+                        </Button>
                     )}
                     {currentStep === 3 && (
-                        <button className="btn btn-success" onClick={handleNext}>
-                            Start Quiz
-                        </button>
+                        <Button variant="outline-success" size='lg' onClick={handleNext}>
+                            <MdStart /> Start Quiz
+                        </Button>
                     )}
                 </div>
             </div>

@@ -12,6 +12,7 @@ import QuizResult from "./components/quiz/QuizResult"
 import GetAllQuiz from "./components/quiz/GetAllQuiz"
 import UpdateQuestion from "./components/question/UpdateQuestion"
 import Admin from "./components/admin/Admin"
+// import Footer from './components/layout/Footer';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
 					<Route path="/all-quiz" element={<GetAllQuiz />} />
 					<Route path="/quiz-result" element={<QuizResult />} />
         </Routes>
+        
       </Router>
     </main>
   )

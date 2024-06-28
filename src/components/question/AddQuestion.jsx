@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import { getSubjects, createQuestion } from '../untils/ApiFunction';
 import { Link } from 'react-router-dom';
+import { FaHandPointRight, FaRegQuestionCircle, FaSave, FaBackspace} from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 
 const AddQuestion = () => {
 	
@@ -22,6 +24,10 @@ const AddQuestion = () => {
             setErrorMessage(error);
         }
     }
+
+	useEffect(() =>{
+		fetchSubject()
+	},[])
 
     const handleAddChoice = async() =>{
         const lastChoice = choices[choices.length-1];
@@ -81,27 +87,33 @@ const AddQuestion = () => {
             setNewSubject("")
         }
     }
+
+	const handleCancelAddSubject = () => {
+		setSubject("");
+		setNewSubject("");
+	}
+
   return (
-    <div className="container">
+    <div className="container font-family">
 		<div className="row justify-content-center">
 			<div className="col-md-6  mt-5">
 				<div className="card">
 					<div className="card-header">
-						<h5 className="card-title">Add New Questions</h5>
+						<h4 className="card-title text-center text-primary fw-bold fs-2">ADD NEW QUESTIONS</h4>
 					</div>
-					<div className="card-body">
+					<div className="card-body fs-4">
 						<form onSubmit={handleSubmit} className="p-2">
 							<div className="mb-3">
 								<label htmlFor="subject" className="form-label text-info">
-									Select a Subject
+									<FaHandPointRight/> Select a Subject
 								</label>
 								<select
 									id="subject"
 									value={subject}
 									onChange={(e) => setSubject(e.target.value)}
-									className="form-control">
+									className="form-control fs-5">
 									<option value="">Select subject</option>
-									<option value={"New"}>Add New</option>
+									<option className='text-danger' value={"New"}>Add New</option>
 									{subjectOptions.map((option) => (
 										<option key={option} value={option}>
 											{option}
@@ -112,27 +124,33 @@ const AddQuestion = () => {
 
 							{subject === "New" && (
 								<div className="mb-3">
-									<label htmlFor="new-subject" className="form-label text-info">
-										Add New Subject
+									<label htmlFor="new-subject" className="form-label text-info fs-4">
+										<FaHandPointRight/> Add New Subject
 									</label>
 									<input
 										type="text"
 										id="new-subject"
 										value={newSubject}
 										onChange={(event) => setNewSubject(event.target.value)}
-										className="form-control"
+										className="form-control fs-5"
 									/>
 									<button
 										type="button"
 										onClick={handleAddSubject}
-										className="btn btn-outline-primary mt-2">
+										className="btn btn-outline-primary mt-2 me-2">
 										Add Subject
+									</button>
+									<button
+										type="button"
+										onClick={handleCancelAddSubject}
+										className="btn btn-outline-danger mt-2">
+										Cancel
 									</button>
 								</div>
 							)}
 							<div className="mb-3">
 								<label htmlFor="question-text" className="form-label text-info">
-									Question
+									<FaHandPointRight/> Question
 								</label>
 								<textarea
 									className="form-control"
@@ -142,7 +160,7 @@ const AddQuestion = () => {
 							</div>
 							<div className="mb-3">
 								<label htmlFor="question-type" className="form-label text-info">
-									Question type
+								 <FaHandPointRight/> Question type
 								</label>
 								<select
 									id="question-type"
@@ -155,7 +173,7 @@ const AddQuestion = () => {
 							</div>
 							<div className="mb-3">
 								<label htmlFor="choices" className="form-label text-primary">
-									Choices
+									<FaHandPointRight/> Choices
 								</label>
 								{choices.map((choice, index) => (
 									<div key={index} className="input-group mb-3">
@@ -163,13 +181,13 @@ const AddQuestion = () => {
 											type="text"
 											value={choice}
 											onChange={(e) => handleChoiceChange(index, e.target.value)}
-											className="form-control"
+											className="form-control me-2"
 										/>
 										<button
 											type="button"
 											onClick={() => handleRemoveChoice(index)}
 											className="btn btn-outline-danger">
-											Remove
+											<MdDeleteForever />
 										</button>
 									</div>
 								))}
@@ -183,7 +201,7 @@ const AddQuestion = () => {
 							{questionType === "single" && (
 								<div className="mb-3">
 									<label htmlFor="answer" className="form-label text-success">
-										Correct Answer
+										<FaHandPointRight/> Correct Answer
 									</label>
 									<input
 										type="text"
@@ -229,11 +247,11 @@ const AddQuestion = () => {
 							{!correctAnswers.length && <p>Please enter at least one correct answer.</p>}
 
 							<div className="btn-group">
-								<button type="submit" className="btn btn-outline-success mr-2">
-									Save Question
+								<button type="submit" className="btn btn-outline-success mr-2 me-2">
+									<FaSave />
 								</button>
-								<Link to={"/all-quiz"} className="btn btn-outline-primary ml-2">
-									Back to existing questions
+								<Link to={"/admin"} className="btn btn-outline-primary ml-2">
+									<FaBackspace />
 								</Link>
 							</div>
 						</form>

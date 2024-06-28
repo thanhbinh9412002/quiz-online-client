@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import { deleteQuestion, getAllQuestion } from '../untils/ApiFunction'
-import {Spinner} from 'react-bootstrap'
+import {Button, Spinner} from 'react-bootstrap'
 import { Link } from 'react-router-dom';
-import {FaPlus} from "react-icons/fa"
+import {FaPlus, FaEdit} from "react-icons/fa"
+import { MdDeleteForever } from "react-icons/md";
 
 
 const GetAllQuiz = () => {
@@ -39,46 +40,39 @@ const GetAllQuiz = () => {
         }, 4000)
     }
     if(isLoading){
-        return( <Spinner animation="border" variant="primary">
-                     <span>Loading...</span>
-                </Spinner>
-            );
+        return( <Spinner animation="border" variant="primary"/>);
     }
 
   return (
     <section className="container">
-        <div className="row mt-5">
-            <div className="col-md-6 mb-2 md-mb-0" style={{ color: "GrayText" }}>
-                <h4>All Quiz Questions</h4>
-            </div>
-            <div className="col-md-4 d-flex justify-content-end">
-                <Link to={"/create-quiz"}>
-                    <FaPlus /> Add Question
-                </Link>
-            </div>
-        </div>
+        <h1 className="mt-5 text-center text-primary fw-bold font-family">All Quiz Questions</h1>
         <hr />
+        <Link to={"/create-quiz"}>
+            <Button variant='outline-primary my-3' size='lg'>
+                <FaPlus /> Add Question
+            </Button>
+        </Link>
         {isQuestionDeleted && <div className="alert alert-success">{successMessage}</div>}
         {questions.map((question, index) => (
             <div key={question.id}>
                 <pre>
-                    <h4 style={{ color: "GrayText" }}>{`${index + 1}. ${question.question}`}</h4>
+                    <h4 className='text-secondary fw-bold'>{`${index + 1}. ${question.question}`}</h4>
                 </pre>
-                <ul>
+                <ul className='fs-5 '>
                     {question.choices.map((choice, index) => (
                         <li key={index}>{choice}</li>
                     ))}
                 </ul>
-                <p className="text-success">Correct Answer: {question.correctAnswers}</p>
-                <div className="btn-group mb-4">
+                <p className="text-success fs-5">Correct Answer: {question.correctAnswers}</p>
+                <div className=" mb-4 ">
                     <Link to={`/update-quiz/${question.id}`}>
-                        <button className="btn btn-sm btn-outline-warning mr-2">Edit Question</button>
+                        <Button variant='warning mr-2 me-2' size='lg' > <FaEdit /> Edit</Button>
                     </Link>
-                    <button
-                        className="btn btn-sm btn-outline-danger"
+                    <Button
+                        variant='danger mr-2 me-2'  size='lg'
                         onClick={() => handleDeleteQuestion(question.id)}>
-                        Delete Question
-                    </button>
+                        <MdDeleteForever /> Delete
+                    </Button>
                 </div>
             </div>
         ))}
